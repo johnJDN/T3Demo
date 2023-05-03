@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-export const noteRouter = createTRPCRouter({
+export const applicationRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(z.object({ topicId: z.string() }))
     .query(({ ctx, input }) => {

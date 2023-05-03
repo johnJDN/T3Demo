@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Table, Checkbox } from "flowbite-react";
+import { Table, Checkbox, Button } from "flowbite-react";
 
 import { api } from "~/utils/api";
 
@@ -43,8 +43,31 @@ const AuthShowcase: React.FC = () => {
     { enabled: sessionData?.user !== undefined }
   );
 
+  const { data: applications, refetch: refetchApplications } =
+    api.application.getAll.useQuery(
+      undefined, // no input
+      {
+        enabled: sessionData?.user !== undefined,
+      }
+    );
+
+  const createApplication = api.application.create.useMutation({
+    onSuccess: () => {
+      void refetchApplications();
+    },
+  });
+
+  const deleteApplication = api.application.delete.useMutation({
+    onSuccess: () => {
+      void refetchApplications();
+    },
+  });
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
+      <Button onClick={() => void addNewApplication()}>
+        Add New Application
+      </Button>
       <Table hoverable={true}>
         <Table.Head>
           <Table.HeadCell className="!p-4">
@@ -64,7 +87,7 @@ const AuthShowcase: React.FC = () => {
               <Checkbox />
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Apple MacBook Pro 17"
+              Apple MacBook Pro 17
             </Table.Cell>
             <Table.Cell>Sliver</Table.Cell>
             <Table.Cell>Laptop</Table.Cell>
@@ -181,7 +204,7 @@ const AuthShowcase: React.FC = () => {
 //   return (
 //     <div className="mx-5 mt-5 grid grid-cols-4 gap-2">
 //       <div className="px-2">
-//         <ul className="menu rounded-box w-56 bg-base-100 p-2">
+//         <ul className="menu rounded-box bg-base-100 w-56 p-2">
 //           {topics?.map((topic) => (
 //             <li key={topic.id}>
 //               <a
