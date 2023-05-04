@@ -4,25 +4,25 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const applicationRouter = createTRPCRouter({
   getAll: protectedProcedure
-    .input(z.object({ topicId: z.string() }))
+    .input(z.object({ userId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.note.findMany({
+      return ctx.prisma.application.findMany({
         where: {
-          topicId: input.topicId,
+          userId: input.userId,
         },
       });
     }),
 
   create: protectedProcedure
     .input(
-      z.object({ title: z.string(), content: z.string(), topicId: z.string() })
+      z.object({ title: z.string(), company: z.string(), userId: z.string() })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.note.create({
+      return ctx.prisma.application.create({
         data: {
           title: input.title,
-          topicId: input.topicId,
-          content: input.content,
+          company: input.company,
+          userId: input.userId,
         },
       });
     }),
@@ -30,7 +30,7 @@ export const applicationRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.note.delete({
+      return ctx.prisma.application.delete({
         where: {
           id: input.id,
         },

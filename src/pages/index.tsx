@@ -45,7 +45,9 @@ const AuthShowcase: React.FC = () => {
 
   const { data: applications, refetch: refetchApplications } =
     api.application.getAll.useQuery(
-      undefined, // no input
+      {
+        userId: sessionData?.user.id as string,
+      },
       {
         enabled: sessionData?.user !== undefined,
       }
@@ -65,7 +67,15 @@ const AuthShowcase: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <Button onClick={() => void addNewApplication()}>
+      <Button
+        onClick={() =>
+          void createApplication.mutate({
+            userId: sessionData?.user.id as string,
+            title: "Software Engineer Intern",
+            company: "Google",
+          })
+        }
+      >
         Add New Application
       </Button>
       <Table hoverable={true}>
