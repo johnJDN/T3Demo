@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Table, Checkbox, Button } from "flowbite-react";
+import { AddApplicationModal } from "~/components/AddApplicationModal";
 
 import { api } from "~/utils/api";
 
@@ -67,6 +68,10 @@ const AuthShowcase: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
+      <AddApplicationModal
+        userId={sessionData?.user.id as string}
+        createApplication={createApplication}
+      />
       <Button
         onClick={() =>
           void createApplication.mutate({
