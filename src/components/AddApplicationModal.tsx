@@ -113,6 +113,10 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
                 userId: userId,
                 title: titleInputRef.current?.value ?? "",
                 company: companyInputRef.current?.value ?? "",
+                status: "Applied",
+                // dateApplied: new Date(),
+                // link: "adsf",
+                // notes: "",
               });
               setOpen(false);
             }}

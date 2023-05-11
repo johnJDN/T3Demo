@@ -93,6 +93,10 @@ model Application {
     updatedAt DateTime @updatedAt
     title     String
     company   String
+    status    String
+    // dateApplied DateTime
+    // link        String
+    // notes       String   @db.Text
     user      User     @relation(fields: [userId], references: [id])
     userId    String
 }
