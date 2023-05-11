@@ -72,17 +72,6 @@ const AuthShowcase: React.FC = () => {
         userId={sessionData?.user.id as string}
         createApplication={createApplication}
       />
-      <Button
-        onClick={() =>
-          void createApplication.mutate({
-            userId: sessionData?.user.id as string,
-            title: "Software Engineer Intern",
-            company: "Google",
-          })
-        }
-      >
-        Add New Application
-      </Button>
       <Table hoverable={true}>
         <Table.Head>
           <Table.HeadCell className="!p-4">

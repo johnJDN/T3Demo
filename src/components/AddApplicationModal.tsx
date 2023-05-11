@@ -6,7 +6,7 @@ import {
   Textarea,
   Select,
 } from "flowbite-react";
-import { FC, useState } from "react";
+import { FC, useState, useRef } from "react";
 import { HiPlus } from "react-icons/hi";
 import { api } from "~/utils/api";
 
@@ -20,6 +20,9 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
   createApplication,
 }) {
   const [isOpen, setOpen] = useState(false);
+  // using useRef to get the value of the input field without having to re-render the component
+  // which would happen with useState
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -39,9 +42,12 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
               <Label htmlFor="title">Title</Label>
               <div className="mt-1">
                 <TextInput
+                  key="titleField"
                   id="title"
                   name="title"
                   placeholder="Software Engineer Intern"
+                  required={true}
+                  ref={inputRef}
                 />
               </div>
             </div>
@@ -99,7 +105,7 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
             onClick={() => {
               createApplication.mutate({
                 userId: userId,
-                title: "Software Engineer Intern",
+                title: inputRef.current?.value ?? "",
                 company: "Google",
               });
               setOpen(false);
