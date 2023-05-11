@@ -15,14 +15,26 @@ export const applicationRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(
-      z.object({ title: z.string(), company: z.string(), userId: z.string() })
+      z.object({
+        userId: z.string(),
+        title: z.string(),
+        company: z.string(),
+        status: z.string(),
+        dateApplied: z.date(),
+        link: z.string(),
+        notes: z.string(),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.application.create({
         data: {
+          userId: input.userId,
           title: input.title,
           company: input.company,
-          userId: input.userId,
+          status: input.status,
+          dateApplied: input.dateApplied,
+          link: input.link,
+          notes: input.notes,
         },
       });
     }),
