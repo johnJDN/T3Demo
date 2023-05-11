@@ -22,7 +22,8 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
   const [isOpen, setOpen] = useState(false);
   // using useRef to get the value of the input field without having to re-render the component
   // which would happen with useState
-  const inputRef = useRef<HTMLInputElement>(null);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const companyInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -42,19 +43,24 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
               <Label htmlFor="title">Title</Label>
               <div className="mt-1">
                 <TextInput
-                  key="titleField"
                   id="title"
                   name="title"
                   placeholder="Software Engineer Intern"
                   required={true}
-                  ref={inputRef}
+                  ref={titleInputRef}
                 />
               </div>
             </div>
             <div>
               <Label htmlFor="company">Company</Label>
               <div className="mt-1">
-                <TextInput id="company" name="company" placeholder="Google" />
+                <TextInput
+                  id="company"
+                  name="company"
+                  placeholder="Google"
+                  required={true}
+                  ref={companyInputRef}
+                />
               </div>
             </div>
             <div className="mb-1 grid grid-cols-1 gap-y-2">
@@ -105,8 +111,8 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
             onClick={() => {
               createApplication.mutate({
                 userId: userId,
-                title: inputRef.current?.value ?? "",
-                company: "Google",
+                title: titleInputRef.current?.value ?? "",
+                company: companyInputRef.current?.value ?? "",
               });
               setOpen(false);
             }}
