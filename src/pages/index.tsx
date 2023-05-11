@@ -79,8 +79,8 @@ const AuthShowcase: React.FC = () => {
           </Table.HeadCell>
           <Table.HeadCell>Title</Table.HeadCell>
           <Table.HeadCell>Company</Table.HeadCell>
-          <Table.HeadCell>Category</Table.HeadCell>
-          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
+          <Table.HeadCell>Link</Table.HeadCell>
           <Table.HeadCell>
             <span className="sr-only">Edit</span>
           </Table.HeadCell>
@@ -98,8 +98,8 @@ const AuthShowcase: React.FC = () => {
                 {application.title}
               </Table.Cell>
               <Table.Cell>{application.company}</Table.Cell>
-              <Table.Cell>Laptop</Table.Cell>
-              <Table.Cell>$2999</Table.Cell>
+              <Table.Cell>{application.status}</Table.Cell>
+              <Table.Cell>{application.link}</Table.Cell>
               <Table.Cell>
                 <a
                   href="/tables"

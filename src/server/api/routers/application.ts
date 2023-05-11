@@ -20,9 +20,9 @@ export const applicationRouter = createTRPCRouter({
         title: z.string(),
         company: z.string(),
         status: z.string(),
-        // dateApplied: z.date(),
-        // link: z.string(),
-        // notes: z.string(),
+        dateApplied: z.date(),
+        link: z.string(),
+        notes: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -32,9 +32,9 @@ export const applicationRouter = createTRPCRouter({
           title: input.title,
           company: input.company,
           status: input.status,
-          // dateApplied: input.dateApplied,
-          // link: input.link,
-          // notes: input.notes,
+          dateApplied: input.dateApplied,
+          link: input.link,
+          notes: input.notes,
         },
       });
     }),

@@ -6,6 +6,7 @@ import {
   Textarea,
   Select,
 } from "flowbite-react";
+import { link } from "fs";
 import { FC, useState, useRef } from "react";
 import { HiPlus } from "react-icons/hi";
 import { api } from "~/utils/api";
@@ -24,6 +25,10 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
   // which would happen with useState
   const titleInputRef = useRef<HTMLInputElement>(null);
   const companyInputRef = useRef<HTMLInputElement>(null);
+  const statusInputRef = useRef<HTMLSelectElement>(null);
+  const dateAppliedInputRef = useRef<HTMLInputElement>(null);
+  const linkAppliedInputRef = useRef<HTMLInputElement>(null);
+  const notesInputRef = useRef<HTMLTextAreaElement>(null);
 
   return (
     <>
@@ -65,7 +70,7 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
             </div>
             <div className="mb-1 grid grid-cols-1 gap-y-2">
               <Label htmlFor="status">Status</Label>
-              <Select id="status" name="status">
+              <Select id="status" name="status" ref={statusInputRef}>
                 <option>Applied</option>
                 <option>Interested</option>
                 <option>Interview Phase</option>
@@ -81,6 +86,7 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
                 placeholder="e.g., 15/08/1990"
                 required
                 type="date"
+                ref={dateAppliedInputRef}
               />
             </div>
             <div className="col-span-6 grid grid-cols-1 gap-y-2 sm:col-span-2">
@@ -91,6 +97,7 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
                   name="link"
                   placeholder="google.com"
                   type="url"
+                  ref={linkAppliedInputRef}
                 />
               </div>
             </div>
@@ -102,6 +109,7 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
                 placeholder="Applied through referral."
                 rows={6}
                 className="mt-1"
+                ref={notesInputRef}
               />
             </div>
           </div>
@@ -113,10 +121,12 @@ export const AddApplicationModal: FC<AddApplicationModalProps> = function ({
                 userId: userId,
                 title: titleInputRef.current?.value ?? "",
                 company: companyInputRef.current?.value ?? "",
-                status: "Applied",
-                // dateApplied: new Date(),
-                // link: "adsf",
-                // notes: "",
+                status: statusInputRef.current?.value ?? "",
+                dateApplied: new Date(
+                  dateAppliedInputRef.current?.value ?? new Date()
+                ), //TODO: the application is currently only working when a user specifies a date applied
+                link: linkAppliedInputRef.current?.value ?? "",
+                notes: notesInputRef.current?.value ?? "",
               });
               setOpen(false);
             }}

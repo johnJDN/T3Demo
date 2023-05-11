@@ -94,9 +94,9 @@ model Application {
     title     String
     company   String
     status    String
-    // dateApplied DateTime
-    // link        String
-    // notes       String   @db.Text
+    dateApplied DateTime
+    link        String
+    notes       String   @db.Text
     user      User     @relation(fields: [userId], references: [id])
     userId    String
 }
