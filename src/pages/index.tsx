@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Table, Checkbox, Button } from "flowbite-react";
+import { Table, Checkbox, Button, Pagination } from "flowbite-react";
 import { AddApplicationModal } from "~/components/AddApplicationModal";
 
 import { api } from "~/utils/api";
@@ -112,6 +112,14 @@ const AuthShowcase: React.FC = () => {
           ))}
         </Table.Body>
       </Table>
+      <Pagination
+        currentPage={1}
+        onPageChange={() => {
+          console.log("page changed");
+        }}
+        showIcons={true}
+        totalPages={100}
+      />
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
